@@ -24,18 +24,22 @@ class _WebPageViewState extends State<WebPageView> {
   WebViewController _webViewcontroller;
   String usertoken;
 
-  bool _checkForInternet() {
+  Future<bool> _checkForInternet() async {
     bool res;
-   http.get("https://google.com").then((value) => res = true).catchError((err) {
+   try{
+     final response = await http.get("https://google.com");
+     res = (response.statusCode == 200)? true : false;
+   } catch(e){
      res = false;
-     return true;
-   });
+   }
+
    return res;
+
   }
 
   @override
   Widget build(BuildContext context) {
-    final bool withInternet = _checkForInternet();
+    final withInternet = _checkForInternet() as bool;
     if (withInternet == true) {
       return Stack(
         children: [

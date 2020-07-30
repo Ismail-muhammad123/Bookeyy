@@ -1,8 +1,6 @@
-import 'package:Bookeyy/Widgets/categories.dart';
 import 'package:Bookeyy/pages/webPageView.dart';
 import 'package:Bookeyy/routing.dart';
 import 'package:flutter/material.dart';
-import 'package:Bookeyy/Widgets/noInternet.dart';
 import 'package:flutter/rendering.dart';
 
 class Home extends StatefulWidget {
@@ -207,7 +205,23 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: null,
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("Not Available"),
+                            content: Text(
+                                "Sorry, this feature is not available yet, but it is comming soon"),
+                            actions: <Widget>[
+                              FlatButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text("Okay"),
+                              ),
+                            ],
+                          ),
+                          barrierDismissible: true,
+                        );
+                      },
                       child: Container(
                         child: Column(
                           children: <Widget>[
@@ -225,7 +239,23 @@ class _HomeState extends State<Home> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: null,
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: Text("Not Available"),
+                            content: Text(
+                                "Sorry, this feature is not available yet, but it is comming soon"),
+                            actions: <Widget>[
+                              FlatButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text("Okay"),
+                              )
+                            ],
+                          ),
+                          barrierDismissible: true,
+                        );
+                      },
                       child: Container(
                         child: Column(
                           children: <Widget>[
@@ -253,4 +283,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-

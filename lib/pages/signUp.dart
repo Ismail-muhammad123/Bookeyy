@@ -162,49 +162,49 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                       onPressed: () async {
-                        // String email = emailControl.text;
-                        // String username = usernameControl.text;
-                        // String password = passwordControl.text;
-                        // String password2 = password2Control.text;
-                        // WPUserRegisterResponse response;
-                        // String token = "";
-                        // String error;
-                        // if (password == password2) {
-                        //   if (password.isNotEmpty &&
-                        //       password2.isNotEmpty &&
-                        //       email.isNotEmpty &&
-                        //       username.isNotEmpty) {
-                        //     setState(() {
-                        //       isLoading = true;
-                        //     });
-                        //     try {
-                        //       response = await WPJsonAPI.instance.api(
-                        //         (request) => request.wpRegister(
-                        //           email: email,
-                        //           password: password,
-                        //           username: username,
-                        //         ),
-                        //       );
-                        //       token = response.data.userToken;
-                        //       Navigator.of(context).pushReplacement(
-                        //         routeTo(
-                        //           HomePage(
-                        //             token: token,
-                        //           ),
-                        //         ),
-                        //       );
-                        //     } catch (e) {}
-                        //   } else {
-                        //     setState(() {
-                        //       errorMSG =
-                        //           "Please make sure you fill all the fields and correctly";
-                        //     });
-                        //   }
-                        // } else {
-                        //   setState(() {
-                        //     errorMSG = "passswords does not match";
-                        //   });
-                        // }
+                         String email = emailControl.text;
+                         String username = usernameControl.text;
+                         String password = passwordControl.text;
+                         String password2 = password2Control.text;
+                         WPUserRegisterResponse response;
+                         String token = "";
+                         String error;
+                         if (password == password2) {
+                           if (password.isNotEmpty &&
+                               password2.isNotEmpty &&
+                               email.isNotEmpty &&
+                               username.isNotEmpty) {
+                             setState(() {
+                               isLoading = true;
+                             });
+                             try {
+                               response = await WPJsonAPI.instance.api(
+                                 (request) => request.wpRegister(
+                                   email: email,
+                                   password: password,
+                                   username: username,
+                                 ),
+                               );
+                               token = response.data.userToken;
+                               Navigator.of(context).pushReplacement(
+                                 routeTo(
+                                   HomePage(
+                                     token: token,
+                                   ),
+                                 ),
+                               );
+                             } catch (e) {}
+                           } else {
+                             setState(() {
+                               errorMSG =
+                                   "Please make sure you fill all the fields and correctly";
+                             });
+                           }
+                         } else {
+                           setState(() {
+                             errorMSG = "passswords does not match";
+                           });
+                         }
                       },
                     ),
                   ],

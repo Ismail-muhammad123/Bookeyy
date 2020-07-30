@@ -98,7 +98,7 @@ class _HomePageState extends State<HomePage> {
       body: _selectedIndex == 0
           ? SafeArea(
               child: Stack(
-                key: UniqueKey(),
+//                key: UniqueKey(),
                 children: <Widget>[
                   Home(
                     token: token,

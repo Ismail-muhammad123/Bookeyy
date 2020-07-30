@@ -140,46 +140,70 @@ class _SigninPageState extends State<SigninPage> {
             ),
             MaterialButton(
               onPressed: () async {
-                // String email = _emailController.text;
-                // String password = _passwordController.text;
-                // String token = "";
-                // WPUserLoginResponse response;
+                String email = _emailController.text;
+                String password = _passwordController.text;
+                String token = "";
+                WPUserLoginResponse response;
 
-                // setState(() {
-                //   isLoading = true;
-                // });
+                setState(() {
+                  isLoading = true;
+                });
 
-                // if (email != "" && password != "") {
-                //   try {
-                //     response = await WPJsonAPI.instance.api((request) {
-                //       return request.wpLogin(
-                //         email: email,
-                //         password: password,
-                //         authType: WPAuthType.WpEmail,
-                //       );
-                //     });
-                //     token = response.data.userToken;
-                //     Navigator.of(context).pushReplacement(
-                //       routeTo(
-                //         HomePage(
-                //           token: token,
-                //         ),
-                //       ),
-                //     );
-                //   } catch (e) {
-                //     print(e.toString());
-                //     setState(() {
-                //       errorMSG =
-                //           "Error, check your inputs or Internet connection and try again";
-                //       isLoading = false;
-                //     });
-                //   }
-                // } else {
-                //   setState(() {
-                //     errorMSG = "Please comlete all the fields";
-                //     isLoading = false;
-                //   });
-                // }
+                if (email != "" && password != "") {
+                  try {
+                    response = await WPJsonAPI.instance.api((request) {
+                      return request.wpLogin(
+                        email: email,
+                        password: password,
+                        authType: WPAuthType.WpEmail,
+                      );
+                    });
+                    token = response.data.userToken;
+                    Navigator.of(context).pushReplacement(
+                      routeTo(
+                        HomePage(
+                          token: token,
+                        ),
+                      ),
+                    );
+                  } catch (e) {
+                    print(e.toString());
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text("Error"),
+                        content: Text(
+                          "Sorry, an error hass occured, ttry checking your internet connection and try again",
+                        ),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text("Okay"),
+                          )
+                        ],
+                      ),
+                      barrierDismissible: true,
+                    );
+                  }
+                } else {
+                  setState(() {
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text("Error"),
+                        content: Text("Please fill in all the fields"),
+                        actions: <Widget>[
+                          FlatButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text("Okay"),
+                          )
+                        ],
+                      ),
+                      barrierDismissible: true,
+                    );
+                    isLoading = false;
+                  });
+                }
               },
               child: isLoading
                   ? SizedBox(
