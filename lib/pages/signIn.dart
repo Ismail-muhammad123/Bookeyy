@@ -31,7 +31,7 @@ class _SigninPageState extends State<SigninPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(
           vertical: 20,
@@ -48,8 +48,9 @@ class _SigninPageState extends State<SigninPage> {
                     child: Text(
                       "Not Now >>",
                       style: TextStyle(
-                        fontSize: 18.0,
-                      ),
+                          color: Colors.orange,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w500),
                     ),
                     onTap: () => Navigator.pushReplacement(
                       context,
@@ -70,7 +71,7 @@ class _SigninPageState extends State<SigninPage> {
                   "assets/images/sub2.png",
                   height: 150,
                   width: 150,
-                  color: Colors.white,
+                  color: Colors.blue,
                 ),
               )),
             ),
@@ -80,102 +81,105 @@ class _SigninPageState extends State<SigninPage> {
             Text(
               "Sign In",
               style: TextStyle(
+                fontWeight: FontWeight.w500,
                 fontSize: 25.0,
+                color: Colors.orange,
               ),
+            ),
+            SizedBox(
+              height: 40.0,
             ),
             TextField(
               keyboardType: TextInputType.text,
               controller: _emailController,
               textAlign: TextAlign.start,
               decoration: InputDecoration(
-                hintText: "email",
+                border: OutlineInputBorder(),
+                hintText: "Email",
                 hintStyle: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 20.0,
                   fontWeight: FontWeight.w500,
                 ),
               ),
+            ),
+            SizedBox(
+              height: 10.0,
             ),
             TextField(
               obscureText: true,
               controller: _passwordController,
               textAlign: TextAlign.start,
               decoration: InputDecoration(
+                border: OutlineInputBorder(),
                 hintStyle: TextStyle(
-                  fontSize: 18.0,
+                  fontSize: 20.0,
                   fontWeight: FontWeight.w500,
                 ),
                 hintText: "Password",
               ),
             ),
-            SizedBox(height: 25.0),
-            Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Text(
-                errorMSG,
-                style: TextStyle(color: Colors.red, fontSize: 20.0),
-              ),
-            ),
-            Row(
-              children: <Widget>[
-                GestureDetector(
-                  child: Text(
-                    " Recover password.",
-                    style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
-                      decoration: TextDecoration.underline,
-                    ),
+            SizedBox(height: 10.0),
+            GestureDetector(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 0, top: 15.0),
+                child: Text(
+                  " Recover password.",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.orange,
+                    decoration: TextDecoration.underline,
                   ),
-                  onTap: () {},
-                )
-              ],
+                ),
+              ),
+              onTap: () {},
             ),
             SizedBox(
               height: 50.0,
             ),
             MaterialButton(
               onPressed: () async {
-                String email = _emailController.text;
-                String password = _passwordController.text;
-                String token = "";
-                WPUserLoginResponse response;
+                // String email = _emailController.text;
+                // String password = _passwordController.text;
+                // String token = "";
+                // WPUserLoginResponse response;
 
-                setState(() {
-                  isLoading = true;
-                });
+                // setState(() {
+                //   isLoading = true;
+                // });
 
-                if (email != "" && password != "") {
-                  try {
-                    response = await WPJsonAPI.instance.api((request) {
-                      return request.wpLogin(
-                        email: email,
-                        password: password,
-                        authType: WPAuthType.WpEmail,
-                      );
-                    });
-                    token = response.data.userToken;
-                    Navigator.of(context).pushReplacement(
-                      routeTo(
-                        HomePage(
-                          token: token,
-                        ),
-                      ),
-                    );
-                  } catch (e) {
-                    print(e.toString());
-                    setState(() {
-                      errorMSG =
-                          "Error, check your inputs or Internet connection and try again";
-                      isLoading = false;
-                    });
-                  }
-                } else {
-                  setState(() {
-                    errorMSG = "Please comlete all the fields";
-                    isLoading = false;
-                  });
-                }
+                // if (email != "" && password != "") {
+                //   try {
+                //     response = await WPJsonAPI.instance.api((request) {
+                //       return request.wpLogin(
+                //         email: email,
+                //         password: password,
+                //         authType: WPAuthType.WpEmail,
+                //       );
+                //     });
+                //     token = response.data.userToken;
+                //     Navigator.of(context).pushReplacement(
+                //       routeTo(
+                //         HomePage(
+                //           token: token,
+                //         ),
+                //       ),
+                //     );
+                //   } catch (e) {
+                //     print(e.toString());
+                //     setState(() {
+                //       errorMSG =
+                //           "Error, check your inputs or Internet connection and try again";
+                //       isLoading = false;
+                //     });
+                //   }
+                // } else {
+                //   setState(() {
+                //     errorMSG = "Please comlete all the fields";
+                //     isLoading = false;
+                //   });
+                // }
               },
               child: isLoading
                   ? SizedBox(
@@ -184,26 +188,28 @@ class _SigninPageState extends State<SigninPage> {
                       width: 14.0,
                     )
                   : Text(
-                      "Log In",
+                      "Sign In",
                       style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18.0,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 22.0,
                       ),
                     ),
-              color: Colors.white,
-              splashColor: Colors.lightBlue,
-              minWidth: 200.0,
+              color: Colors.blue,
+              splashColor: Colors.white,
+              textColor: Colors.white,
+              minWidth: 220.0,
               height: 40.0,
             ),
             SizedBox(
-              height: 40.0,
+              height: 25.0,
             ),
             Row(
               children: <Widget>[
                 Text(
                   "Don't have an account yet?",
                   style: TextStyle(
-                    fontSize: 18.0,
+                    color: Colors.blue,
+                    fontSize: 20.0,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -211,9 +217,9 @@ class _SigninPageState extends State<SigninPage> {
                   child: Text(
                     " Sign Up",
                     style: TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white,
+                      fontSize: 22.0,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.orange,
                       decoration: TextDecoration.underline,
                     ),
                   ),

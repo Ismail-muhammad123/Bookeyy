@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.white,
       body: Center(
           child: Padding(
         padding: const EdgeInsets.only(bottom: 250.0, left: 50.0, right: 50.0),
@@ -37,14 +37,15 @@ class _SplashScreenState extends State<SplashScreen> {
               tag: "logo",
               child: Image.asset(
                 "assets/images/sub2.png",
-                width: 100,
-                color: Colors.white,
+                width: 130,
+                color: Colors.blue,
               ),
             ),
             Image.asset(
               "assets/images/sub1.png",
-              width: 300,
-              color: Colors.white,
+              height: 100,
+              width: 450,
+              color: Colors.blue,
             ),
           ],
         ),

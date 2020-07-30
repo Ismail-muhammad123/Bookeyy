@@ -9,13 +9,20 @@ class NoInternet extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            Text(
-              "Sorry, an error has occurs. check your internet and try again",
-              softWrap: true,
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                "Sorry, an error has occurs. check your internet and try again",
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+                textAlign: TextAlign.center,
+                softWrap: true,
+              ),
             ),
             MaterialButton(
+              color: Colors.blue,
               child: Text("Retry"),
               onPressed: () => Navigator.of(context).pushReplacement(
                 routeTo(page),

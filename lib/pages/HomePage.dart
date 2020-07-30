@@ -11,67 +11,43 @@ class HomePage extends StatefulWidget {
   final id;
 
   @override
-  _HomePageState createState() => _HomePageState(id: id, token: token);
+  _HomePageState createState() => _HomePageState(
+        id: id,
+        token: token,
+      );
 }
 
 class _HomePageState extends State<HomePage> {
   _HomePageState({this.id, this.token});
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _tabedPages = <Widget>[
-      Home(token: token,),
-      Booking(token: token,),
+      Home(
+        token: token,
+      ),
+      Booking(
+        token: token,
+      ),
       Search(),
     ];
   }
 
   Widget _tabTitle;
-
+  List<Widget> _tabedPages;
 
   int _selectedIndex = 0;
-  static List<Widget> _tabTitles = [
-    Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Image.asset(
-          "assets/images/sub2.png",
-          color: Colors.white,
-          height: 30.0,
-          width: 30.0,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 10.0,
-            vertical: 0,
-          ),
-          child: Text(
-            "BOOKEYY",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        )
-      ],
-    ),
-    Text("Bookings"),
-    Text("Search"),
-  ];
 
   final int id;
   final String token;
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   void _selectedItemChanged(int index) {
     setState(() {
       _selectedIndex = index;
-      _tabTitle = _tabTitles[index];
     });
   }
-
-
-   List<Widget> _tabedPages;
 
   final _navItems = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
@@ -103,11 +79,12 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: _tabTitle,
-        centerTitle: true,
-        elevation: 0,
-      ),
+      key: scaffoldKey,
+      // appBar: AppBar(
+      //   title: _tabTitle,
+      //   centerTitle: true,
+      //   elevation: 0,
+      // ),
       drawer: HomeDrawerMenu(),
       bottomNavigationBar: BottomNavigationBar(
         items: _navItems,
@@ -118,7 +95,26 @@ class _HomePageState extends State<HomePage> {
         onTap: _selectedItemChanged,
         backgroundColor: Colors.lightBlueAccent,
       ),
-      body: _tabedPages[_selectedIndex],
+      body: _selectedIndex == 0
+          ? SafeArea(
+              child: Stack(
+                key: UniqueKey(),
+                children: <Widget>[
+                  Home(
+                    token: token,
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.menu,
+                      size: 43.0,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () => scaffoldKey.currentState.openDrawer(),
+                  ),
+                ],
+              ),
+            )
+          : _tabedPages[_selectedIndex],
     );
   }
 }
