@@ -1,4 +1,6 @@
 import 'package:Bookeyy/Widgets/categories.dart';
+import 'package:Bookeyy/pages/webPageView.dart';
+import 'package:Bookeyy/routing.dart';
 import 'package:flutter/material.dart';
 import 'package:Bookeyy/Widgets/noInternet.dart';
 import 'package:flutter/rendering.dart';
@@ -48,19 +50,6 @@ class _HomeState extends State<Home> {
                     height: 300.0,
                   ),
                 ),
-//                Row(
-//                  children: <Widget>[
-//                    IconButton(
-//                      icon: Icon(
-//                        Icons.menu,
-//                        size: 40.0,
-//                        color: Colors.blue,
-//                      ),
-//                      onPressed: () =>
-//                          widget.scafoldKey.currentState.openEndDrawer(),
-//                    ),
-//                  ],
-//                )
                 Padding(
                   padding: const EdgeInsets.only(
                     top: 10.0,
@@ -104,19 +93,41 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: null,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          routeTo(
+                            WebPageView(
+                              token: token,
+                              url: "https://bookeyy.com/entertainment",
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
                         child: Column(
                           children: <Widget>[
                             Image.asset("assets/images/catering.png",
                                 height: 80.0),
-                            Text("Entertainment", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
+                            Text(
+                              "Entertainment",
+                              style: TextStyle(
+                                  color: Colors.orange, fontSize: 16.0),
+                            )
                           ],
                         ),
                       ),
                     ),
                     GestureDetector(
-                      onTap: null,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          routeTo(
+                            WebPageView(
+                              token: token,
+                              url: "https://bookeyy.com/sport-center/",
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
                         child: Column(
                           children: <Widget>[
@@ -124,13 +135,26 @@ class _HomeState extends State<Home> {
                               "assets/images/futsal.png",
                               height: 80.0,
                             ),
-                            Text("Sport Centers", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
+                            Text(
+                              "Sport Centers",
+                              style: TextStyle(
+                                  color: Colors.orange, fontSize: 16.0),
+                            )
                           ],
                         ),
                       ),
                     ),
                     GestureDetector(
-                      onTap: null,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          routeTo(
+                            WebPageView(
+                              token: token,
+                              url: "https://bookeyy.com/fashion/",
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
                         child: Column(
                           children: <Widget>[
@@ -138,7 +162,11 @@ class _HomeState extends State<Home> {
                               "assets/images/makeup.png",
                               height: 80.0,
                             ),
-                            Text("Fashion Design", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
+                            Text(
+                              "Fashion Design",
+                              style: TextStyle(
+                                  color: Colors.orange, fontSize: 16.0),
+                            )
                           ],
                         ),
                       ),
@@ -152,7 +180,16 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     GestureDetector(
-                      onTap: null,
+                      onTap: () {
+                        Navigator.of(context).push(
+                          routeTo(
+                            WebPageView(
+                              token: token,
+                              url: "https://bookeyy.com/health-care/",
+                            ),
+                          ),
+                        );
+                      },
                       child: Container(
                         child: Column(
                           children: <Widget>[
@@ -160,7 +197,11 @@ class _HomeState extends State<Home> {
                               "assets/images/doctor.png",
                               height: 80.0,
                             ),
-                            Text("Health care", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
+                            Text(
+                              "Health care",
+                              style: TextStyle(
+                                  color: Colors.orange, fontSize: 16.0),
+                            )
                           ],
                         ),
                       ),
@@ -174,7 +215,11 @@ class _HomeState extends State<Home> {
                               "assets/images/catering.png",
                               height: 80.0,
                             ),
-                            Text("Catering", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
+                            Text(
+                              "Catering",
+                              style: TextStyle(
+                                  color: Colors.orange, fontSize: 16.0),
+                            )
                           ],
                         ),
                       ),
@@ -189,7 +234,11 @@ class _HomeState extends State<Home> {
                               height: 80.0,
                               width: 100.0,
                             ),
-                            Text("Transportation", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
+                            Text(
+                              "Transportation",
+                              style: TextStyle(
+                                  color: Colors.orange, fontSize: 16.0),
+                            )
                           ],
                         ),
                       ),
@@ -205,28 +254,3 @@ class _HomeState extends State<Home> {
   }
 }
 
-class Category extends StatelessWidget {
-  Category({this.image, this.label, this.ontap});
-
-  final image, label, ontap;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: ontap,
-      child: Container(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              height: 100.0,
-              child: Image.asset(
-                image,
-                width: 110.0,
-              ),
-            ),
-            Text(label)
-          ],
-        ),
-      ),
-    );
-  }
-}
