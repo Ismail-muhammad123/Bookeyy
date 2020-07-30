@@ -110,7 +110,7 @@ class _HomeState extends State<Home> {
                           children: <Widget>[
                             Image.asset("assets/images/catering.png",
                                 height: 80.0),
-                            Text("Catering Services")
+                            Text("Entertainment", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
                           ],
                         ),
                       ),
@@ -124,7 +124,7 @@ class _HomeState extends State<Home> {
                               "assets/images/futsal.png",
                               height: 80.0,
                             ),
-                            Text("Catering Services")
+                            Text("Sport Centers", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
                           ],
                         ),
                       ),
@@ -138,7 +138,7 @@ class _HomeState extends State<Home> {
                               "assets/images/makeup.png",
                               height: 80.0,
                             ),
-                            Text("Catering Services")
+                            Text("Fashion Design", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
                           ],
                         ),
                       ),
@@ -160,7 +160,7 @@ class _HomeState extends State<Home> {
                               "assets/images/doctor.png",
                               height: 80.0,
                             ),
-                            Text("Catering Services")
+                            Text("Health care", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
                           ],
                         ),
                       ),
@@ -174,7 +174,7 @@ class _HomeState extends State<Home> {
                               "assets/images/catering.png",
                               height: 80.0,
                             ),
-                            Text("Catering Services")
+                            Text("Catering", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
                           ],
                         ),
                       ),
@@ -187,8 +187,9 @@ class _HomeState extends State<Home> {
                             Image.asset(
                               "assets/images/bus.png",
                               height: 80.0,
+                              width: 100.0,
                             ),
-                            Text("Catering Services")
+                            Text("Transportation", style: TextStyle(color: Colors.orange, fontSize: 16.0),)
                           ],
                         ),
                       ),
