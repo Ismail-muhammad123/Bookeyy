@@ -3,6 +3,7 @@ import 'package:Bookeyy/Widgets/noInternet.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:wp_json_api/wp_json_api.dart';
 
 class WebPageView extends StatefulWidget {
   WebPageView({this.token, this.url});
@@ -17,6 +18,7 @@ class _WebPageViewState extends State<WebPageView> {
   @override
   void initState() {
     super.initState();
+    WPJsonAPI.instance.initWith(baseUrl: "https://bookeyy.com");
     isloading = false;
   }
 
@@ -24,22 +26,17 @@ class _WebPageViewState extends State<WebPageView> {
   WebViewController _webViewcontroller;
   String usertoken;
 
-  Future<bool> _checkForInternet() async {
-    bool res;
-   try{
-     final response = await http.get("https://google.com");
-     res = (response.statusCode == 200)? true : false;
-   } catch(e){
-     res = false;
-   }
-
-   return res;
-
+  bool _checkForInternet() {
+    final response = http.get("https://google.com").then((value) {
+      return value.statusCode == 200 ? true : false;
+    }).catchError((err) {
+      return false;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    final withInternet = _checkForInternet() as bool;
+    final withInternet = _checkForInternet();
     if (withInternet == true) {
       return Stack(
         children: [

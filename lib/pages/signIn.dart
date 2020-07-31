@@ -14,7 +14,7 @@ class SigninPage extends StatefulWidget {
 class _SigninPageState extends State<SigninPage> {
   @override
   void initState() {
-    WPJsonAPI.instance.initWith(baseUrl: "https://bookeyy.com/");
+    WPJsonAPI.instance.initWith(baseUrl: "https://bookeyy.com");
     super.initState();
     _emailController = new TextEditingController();
 
@@ -150,6 +150,8 @@ class _SigninPageState extends State<SigninPage> {
                 });
 
                 if (email != "" && password != "") {
+                  print(
+                      "tryine o login with email: $email and password $password");
                   try {
                     response = await WPJsonAPI.instance.api((request) {
                       return request.wpLogin(
@@ -158,7 +160,9 @@ class _SigninPageState extends State<SigninPage> {
                         authType: WPAuthType.WpEmail,
                       );
                     });
+
                     token = response.data.userToken;
+                    print("User Token: $token");
                     Navigator.of(context).pushReplacement(
                       routeTo(
                         HomePage(
@@ -167,13 +171,16 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                     );
                   } catch (e) {
+                    setState(() {
+                      isLoading = false;
+                    });
                     print(e.toString());
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
                         title: Text("Error"),
                         content: Text(
-                          "Sorry, an error hass occured, ttry checking your internet connection and try again",
+                          "Sorry, an error has occured, check your internet connection and try again",
                         ),
                         actions: <Widget>[
                           FlatButton(
@@ -186,28 +193,30 @@ class _SigninPageState extends State<SigninPage> {
                     );
                   }
                 } else {
+                  showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                      title: Text("Error"),
+                      content: Text("Please fill in all the fields"),
+                      actions: <Widget>[
+                        FlatButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text("Okay"),
+                        )
+                      ],
+                    ),
+                    barrierDismissible: true,
+                  );
                   setState(() {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: Text("Error"),
-                        content: Text("Please fill in all the fields"),
-                        actions: <Widget>[
-                          FlatButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text("Okay"),
-                          )
-                        ],
-                      ),
-                      barrierDismissible: true,
-                    );
                     isLoading = false;
                   });
                 }
               },
               child: isLoading
                   ? SizedBox(
-                      child: CircularProgressIndicator(),
+                      child: CircularProgressIndicator(
+                        backgroundColor: Colors.white,
+                      ),
                       height: 14.0,
                       width: 14.0,
                     )

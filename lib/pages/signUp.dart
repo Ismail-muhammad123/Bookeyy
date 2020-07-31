@@ -14,7 +14,7 @@ class _SignUpState extends State<SignUp> {
   @override
   void initState() {
     super.initState();
-    WPJsonAPI.instance.initWith(baseUrl: "https://bookeyy.com/");
+    WPJsonAPI.instance.initWith(baseUrl: "https://bookeyy.com");
     emailControl = new TextEditingController();
 
     passwordControl = new TextEditingController();
@@ -153,7 +153,10 @@ class _SignUpState extends State<SignUp> {
                       color: Colors.blue,
                       textColor: Colors.white,
                       child: isLoading
-                          ? CircularProgressIndicator(strokeWidth: 4.0)
+                          ? CircularProgressIndicator(
+                              strokeWidth: 3.0,
+                              backgroundColor: Colors.white,
+                            )
                           : Text(
                               "Sign Up",
                               style: TextStyle(
@@ -162,49 +165,95 @@ class _SignUpState extends State<SignUp> {
                               ),
                             ),
                       onPressed: () async {
-                         String email = emailControl.text;
-                         String username = usernameControl.text;
-                         String password = passwordControl.text;
-                         String password2 = password2Control.text;
-                         WPUserRegisterResponse response;
-                         String token = "";
-                         String error;
-                         if (password == password2) {
-                           if (password.isNotEmpty &&
-                               password2.isNotEmpty &&
-                               email.isNotEmpty &&
-                               username.isNotEmpty) {
-                             setState(() {
-                               isLoading = true;
-                             });
-                             try {
-                               response = await WPJsonAPI.instance.api(
-                                 (request) => request.wpRegister(
-                                   email: email,
-                                   password: password,
-                                   username: username,
-                                 ),
-                               );
-                               token = response.data.userToken;
-                               Navigator.of(context).pushReplacement(
-                                 routeTo(
-                                   HomePage(
-                                     token: token,
-                                   ),
-                                 ),
-                               );
-                             } catch (e) {}
-                           } else {
-                             setState(() {
-                               errorMSG =
-                                   "Please make sure you fill all the fields and correctly";
-                             });
-                           }
-                         } else {
-                           setState(() {
-                             errorMSG = "passswords does not match";
-                           });
-                         }
+                        String email = emailControl.text;
+                        String username = usernameControl.text;
+                        String password = passwordControl.text;
+                        String password2 = password2Control.text;
+                        WPUserRegisterResponse response;
+                        String token = "";
+                        if (password == password2) {
+                          if (password.isNotEmpty &&
+                              password2.isNotEmpty &&
+                              email.isNotEmpty &&
+                              username.isNotEmpty) {
+                            setState(() {
+                              isLoading = true;
+                            });
+                            try {
+                              print(
+                                  "trying to register a new user: $email $username $password");
+                              response = await WPJsonAPI.instance.api(
+                                (request) => request.wpRegister(
+                                  email: email,
+                                  password: password,
+                                  username: username,
+                                ),
+                              );
+                              token = response.data.userToken;
+                              print("User Token: $token");
+                              Navigator.of(context).pushReplacement(
+                                routeTo(
+                                  HomePage(
+                                    token: token,
+                                  ),
+                                ),
+                              );
+                            } catch (e) {
+                              print(e.toString());
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text("Error"),
+                                  content: Text(
+                                    "Sorry, an error hass occured, check your internet connection and try again",
+                                  ),
+                                  actions: <Widget>[
+                                    FlatButton(
+                                      onPressed: () => Navigator.pop(context),
+                                      child: Text("Okay"),
+                                    )
+                                  ],
+                                ),
+                                barrierDismissible: true,
+                              );
+                              setState(() {
+                                isLoading = false;
+                              });
+                            }
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text("Error"),
+                                content: Text("Please fill in all the fields"),
+                                actions: <Widget>[
+                                  FlatButton(
+                                    onPressed: () => Navigator.pop(context),
+                                    child: Text("Okay"),
+                                  )
+                                ],
+                              ),
+                              barrierDismissible: true,
+                            );
+                          }
+                        } else {
+                          setState(() {});
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text("Error"),
+                              content:
+                                  Text("The two passwords does not match!"),
+                              actions: <Widget>[
+                                FlatButton(
+                                  onPressed: () => Navigator.pop(context),
+                                  child: Text("Okay"),
+                                )
+                              ],
+                            ),
+                            barrierDismissible: true,
+                          );
+                        }
                       },
                     ),
                   ],
