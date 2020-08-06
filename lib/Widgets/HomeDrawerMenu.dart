@@ -41,7 +41,7 @@ class HomeDrawerMenu extends StatelessWidget {
             ),
             leading: Icon(FontAwesomeIcons.question, color: Colors.blue),
             onTap: () {
-              Navigator.of(context).push(
+              Navigator.push(context,
                 routeTo(
                   WebPageView(
                     url: "https://bookeyy.com/about/",
@@ -60,7 +60,7 @@ class HomeDrawerMenu extends StatelessWidget {
               color: Colors.blue,
             ),
             onTap: () {
-              Navigator.of(context).push(
+              Navigator.push(context,
                 routeTo(
                   WebPageView(
                     url: "https://bookeyy.com/contact/",

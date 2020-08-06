@@ -85,7 +85,7 @@ class _HomeState extends State<Home> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(
+                        Navigator.push(context,
                           routeTo(
                             WebPageView(
                               url: "https://bookeyy.com/entertainment",
@@ -109,7 +109,7 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(
+                        Navigator.push(context,
                           routeTo(
                             WebPageView(
                               url: "https://bookeyy.com/sport-center/",
@@ -135,7 +135,7 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(
+                        Navigator.push(context,
                           routeTo(
                             WebPageView(
                               url: "https://bookeyy.com/fashion/",
@@ -169,7 +169,7 @@ class _HomeState extends State<Home> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).push(
+                        Navigator.push(context,
                           routeTo(
                             WebPageView(
                               url: "https://bookeyy.com/health-care/",
