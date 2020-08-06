@@ -10,7 +10,6 @@ class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return WebPageView(
-      token: token,
       url: "https://bookeyy.com/search/",
     );
   }

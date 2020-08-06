@@ -40,7 +40,6 @@ class MyGrids extends StatelessWidget {
           iconData: categories[index]['icon'],
           label: categories[index]['label'],
           url: categories[index]["url"],
-          token: token,
         ),
       ),
     );
@@ -53,15 +52,11 @@ class CategoryCard extends StatelessWidget {
     @required this.iconData,
     @required this.label,
     @required this.url,
-    this.token = "",
-    this.nonce,
   }) : super(key: key);
 
   final IconData iconData;
   final String label;
   final url;
-  final token;
-  final nonce;
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +67,6 @@ class CategoryCard extends StatelessWidget {
           routeTo(
             WebPageView(
               url: url,
-              token: token,
             ),
           ),
         ),

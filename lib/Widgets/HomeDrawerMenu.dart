@@ -1,5 +1,4 @@
 import 'package:Bookeyy/pages/home.dart';
-import 'package:Bookeyy/pages/signIn.dart';
 import 'package:Bookeyy/pages/webPageView.dart';
 import 'package:Bookeyy/routing.dart';
 import 'package:flutter/material.dart';
@@ -34,20 +33,7 @@ class HomeDrawerMenu extends StatelessWidget {
           SizedBox(
             height: 10.0,
           ),
-          ListTile(
-            title: Text(
-              "Sign In",
-              style: textStyle,
-            ),
-            leading: Icon(FontAwesomeIcons.user, color: Colors.blue),
-            onTap: () {
-              Navigator.of(context).push(
-                routeTo(
-                  SigninPage(),
-                ),
-              );
-            },
-          ),
+
           ListTile(
             title: Text(
               "About Us",
@@ -58,7 +44,6 @@ class HomeDrawerMenu extends StatelessWidget {
               Navigator.of(context).push(
                 routeTo(
                   WebPageView(
-                    token: token,
                     url: "https://bookeyy.com/about/",
                   ),
                 ),
@@ -78,29 +63,13 @@ class HomeDrawerMenu extends StatelessWidget {
               Navigator.of(context).push(
                 routeTo(
                   WebPageView(
-                    token: token,
                     url: "https://bookeyy.com/contact/",
                   ),
                 ),
               );
             },
           ),
-          ListTile(
-            title: Text(
-              "Log Out",
-              style: textStyle,
-            ),
-            leading: Icon(Icons.exit_to_app, color: Colors.blue),
-            onTap: () {
-              Navigator.of(context).pushReplacement(
-                routeTo(
-                  Home(
-                    token: null,
-                  ),
-                ),
-              );
-            },
-          ),
+
         ],
       ),
     );

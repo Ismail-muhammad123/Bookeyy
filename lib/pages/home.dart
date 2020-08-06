@@ -4,23 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class Home extends StatefulWidget {
-  Home({this.token});
 
-  final token;
 
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  @override
-  void initState() {
-    super.initState();
-    token = widget.token;
-  }
 
   bool noInternet = false;
-  String token;
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +25,11 @@ class _HomeState extends State<Home> {
                 Container(
                   height: 300.0,
                   decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(200.0),
-                      )),
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(200.0),
+                    ),
+                  ),
                 ),
                 ClipRRect(
                   borderRadius: BorderRadius.only(
@@ -95,7 +88,6 @@ class _HomeState extends State<Home> {
                         Navigator.of(context).push(
                           routeTo(
                             WebPageView(
-                              token: token,
                               url: "https://bookeyy.com/entertainment",
                             ),
                           ),
@@ -104,7 +96,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         child: Column(
                           children: <Widget>[
-                            Image.asset("assets/images/catering.png",
+                            Image.asset("assets/images/show.png",
                                 height: 80.0),
                             Text(
                               "Entertainment",
@@ -120,7 +112,6 @@ class _HomeState extends State<Home> {
                         Navigator.of(context).push(
                           routeTo(
                             WebPageView(
-                              token: token,
                               url: "https://bookeyy.com/sport-center/",
                             ),
                           ),
@@ -147,7 +138,6 @@ class _HomeState extends State<Home> {
                         Navigator.of(context).push(
                           routeTo(
                             WebPageView(
-                              token: token,
                               url: "https://bookeyy.com/fashion/",
                             ),
                           ),
@@ -182,7 +172,6 @@ class _HomeState extends State<Home> {
                         Navigator.of(context).push(
                           routeTo(
                             WebPageView(
-                              token: token,
                               url: "https://bookeyy.com/health-care/",
                             ),
                           ),

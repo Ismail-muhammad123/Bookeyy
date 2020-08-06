@@ -5,31 +5,17 @@ import 'package:flutter/material.dart';
 import 'package:Bookeyy/pages/Booking.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({this.id, this.token});
-
-  final token;
-  final id;
-
   @override
-  _HomePageState createState() => _HomePageState(
-        id: id,
-        token: token,
-      );
+  _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  _HomePageState({this.id, this.token});
-
   @override
   void initState() {
     super.initState();
     _tabedPages = <Widget>[
-      Home(
-        token: token,
-      ),
-      Booking(
-        token: token,
-      ),
+      Home(),
+      Booking(),
       Search(),
     ];
   }
@@ -39,8 +25,6 @@ class _HomePageState extends State<HomePage> {
 
   int _selectedIndex = 0;
 
-  final int id;
-  final String token;
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   void _selectedItemChanged(int index) {
@@ -100,9 +84,7 @@ class _HomePageState extends State<HomePage> {
               child: Stack(
 //                key: UniqueKey(),
                 children: <Widget>[
-                  Home(
-                    token: token,
-                  ),
+                  Home(),
                   IconButton(
                     icon: Icon(
                       Icons.menu,

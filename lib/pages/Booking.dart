@@ -1,7 +1,5 @@
-
 import 'package:Bookeyy/pages/webPageView.dart';
 import 'package:flutter/material.dart';
-
 
 class Booking extends StatefulWidget {
   Booking({this.token});
@@ -20,6 +18,8 @@ class _BookingState extends State<Booking> {
 
   @override
   Widget build(BuildContext context) {
-    return WebPageView(token: token, url: "https://bookeyy.com/customer-panel/",);
+    return WebPageView(
+      url: "https://bookeyy.com/customer-panel/",
+    );
   }
 }

@@ -1,13 +1,13 @@
+import 'dart:async';
 import 'dart:io';
-import 'package:Bookeyy/Widgets/noInternet.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:wp_json_api/wp_json_api.dart';
 
 class WebPageView extends StatefulWidget {
-  WebPageView({this.token, this.url});
-  final token;
+  WebPageView({this.url});
+
   final url;
 
   @override
@@ -19,64 +19,95 @@ class _WebPageViewState extends State<WebPageView> {
   void initState() {
     super.initState();
     WPJsonAPI.instance.initWith(baseUrl: "https://bookeyy.com");
-    isloading = false;
+    isloading = true;
   }
 
   bool isloading;
   WebViewController _webViewcontroller;
-  String usertoken;
-
-  bool _checkForInternet() {
-    final response = http.get("https://google.com").then((value) {
-      return value.statusCode == 200 ? true : false;
-    }).catchError((err) {
-      return false;
-    });
-  }
+  bool withInternet;
 
   @override
   Widget build(BuildContext context) {
-    final withInternet = _checkForInternet();
-    if (withInternet == true) {
-      return Stack(
-        children: [
-          Scaffold(
-            body: SafeArea(
-              child: WebView(
-                initialUrl: "https://bookeyy.com",
-                javascriptMode: JavascriptMode.unrestricted,
-                onWebViewCreated: (controller) {
-                  _webViewcontroller = controller;
-                  if (widget.token != null) {
-                    _webViewcontroller.loadUrl(
-                      widget.url,
-                      headers: {
-                        HttpHeaders.authorizationHeader:
-                            "Bearer " + widget.token,
-                      },
-                    );
-                  } else {
-                    _webViewcontroller.loadUrl(
-                      widget.url,
-                    );
-                  }
-                },
-              ),
+    try {
+      http
+          .get("https://www.google.com")
+          .then(
+            (value) => setState(
+              () {
+                withInternet = true;
+              },
             ),
+          )
+          .catchError(
+        (err) {
+          setState(
+            () {
+              withInternet = false;
+            },
+          );
+        },
+      );
+    } catch (e) {
+      print(e);
+    }
+
+    if (withInternet == false) {
+      return Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  "Sorry, an error has occurs. check your internet and try again",
+                  style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                  softWrap: true,
+                ),
+              ),
+              MaterialButton(
+                color: Colors.blue,
+                child: Text("Retry"),
+                onPressed: () => setState(() {
+                  withInternet = true;
+                }),
+              )
+            ],
           ),
-          isloading
-              ? Center(
-                  child: CircularProgressIndicator(),
-                )
-              : Center()
-        ],
+        ),
       );
     }
-    return NoInternet(
-      page: WebPageView(
-        token: widget.token,
-        url: widget.url,
-      ),
+    return Stack(
+      children: [
+        Scaffold(
+          body: SafeArea(
+            child: WebView(
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: (controller) {
+                _webViewcontroller = controller;
+
+                Timer(
+                  Duration(seconds: 5),
+                  () => setState(
+                    () {
+                      isloading = false;
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        isloading
+            ? Center(
+                child: CircularProgressIndicator(
+                backgroundColor: Colors.blue,
+              ))
+            : Center()
+      ],
     );
   }
 }

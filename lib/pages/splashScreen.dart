@@ -1,7 +1,7 @@
 import 'dart:async';
+import 'package:Bookeyy/pages/HomePage.dart';
 import 'package:Bookeyy/routing.dart';
 import 'package:flutter/material.dart';
-import 'signIn.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
       () => Navigator.pushReplacement(
         context,
         routeTo(
-          SigninPage(),
+          HomePage(),
         ),
       ),
     );
