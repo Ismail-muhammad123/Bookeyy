@@ -47,7 +47,7 @@ class _HomePageState extends State<HomePage> {
         Icons.bookmark_border,
       ),
       title: Text(
-        "Bookings",
+        "My Bookings",
       ),
     ),
     BottomNavigationBarItem(
