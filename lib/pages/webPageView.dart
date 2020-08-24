@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -83,21 +82,37 @@ class _WebPageViewState extends State<WebPageView> {
       children: [
         Scaffold(
           body: SafeArea(
-            child: WebView(
-              initialUrl: widget.url,
-              javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: (controller) {
-                _webViewcontroller = controller;
+            child: WillPopScope(
+              onWillPop: () async {
+                var canGoBack = _webViewcontroller.canGoBack();
 
-                Timer(
-                  Duration(seconds: 5),
-                  () => setState(
-                    () {
-                      isloading = false;
-                    },
-                  ),
-                );
+                if (canGoBack as bool) {
+                  _webViewcontroller.goBack();
+                  return false;
+                } else {
+                  return true;
+                }
               },
+              child: WebView(
+                initialUrl: widget.url,
+                javascriptMode: JavascriptMode.unrestricted,
+                onWebViewCreated: (controller) {
+                  setState(
+                    () {
+                      _webViewcontroller = controller;
+                    },
+                  );
+
+                  Timer(
+                    Duration(seconds: 5),
+                    () => setState(
+                      () {
+                        isloading = false;
+                      },
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ),
