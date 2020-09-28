@@ -3,7 +3,6 @@ import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:http/http.dart' as http;
-//import 'package:wp_json_api/wp_json_api.dart';
 
 class WebPageView extends StatefulWidget {
   WebPageView({this.url});
@@ -21,15 +20,7 @@ class _WebPageViewState extends State<WebPageView> {
 
     isloading = true;
   }
-//  Completer<WebViewController> _controller = Completer<WebViewController>();
-//
-//  checkInternetConectivity() async {
-//    bool result = await DataConnectionChecker().hasConnection;
-//    if (result == true) {
-//      return true;
-//    }
-//    return false;
-//  }
+
 
   bool isloading;
   WebViewController _webViewcontroller;
@@ -41,9 +32,7 @@ class _WebPageViewState extends State<WebPageView> {
       future: DataConnectionChecker().hasConnection,
       builder: (context, snapshot) {
         if (snapshot.hasData ) {
-//          setState(() {
-//            withInternet = true;
-//          });
+
           return Stack(
             children: [
               Scaffold(
@@ -91,9 +80,7 @@ class _WebPageViewState extends State<WebPageView> {
             ],
           );
         } else {
-//          setState(() {
-//            withInternet = false;
-//          });
+
           return Scaffold(
             body: Center(
               child: Column(
