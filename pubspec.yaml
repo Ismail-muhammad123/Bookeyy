@@ -8,10 +8,11 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  woosignal: ^1.1.2
+  data_connection_checker: ^0.3.4
+#  woosignal: ^1.1.2
   http: ^0.12.1
-  wp_json_api: ^0.1.4
-  webview_flutter: ^0.3.22+1
+#  wp_json_api: ^0.1.4
+  webview_flutter: ^0.3.24
   font_awesome_flutter: ^8.8.1
   flutter:
     sdk: flutter
