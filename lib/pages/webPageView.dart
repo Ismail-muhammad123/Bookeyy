@@ -54,41 +54,50 @@ class _WebPageViewState extends State<WebPageView> {
     return Stack(
       children: [
         SafeArea(
-          child: WebView(
-            onWebResourceError: (error) {
-              showDialog(
-                  context: context,
-                  barrierDismissible: true,
-                  builder: (contect) {
-                    return AlertDialog(
-                      title: Text("Error"),
-                      content: Text(
-                          "Sorry this page could not be loaded, check your internet connection and reload"),
-                      actions: [
-                        FlatButton(
-                          onPressed: () => Navigator.pop(context),
-                          child: Text("exit"),
-                        ),
-                        FlatButton(
-                          onPressed: () {
-                            _reloadPage();
-                            Navigator.pop(context);
-                          },
-                          child: Text("Reload"),
-                        )
-                      ],
-                    );
-                  });
+          child: WillPopScope(
+            onWillPop: () async {
+              if (_webViewcontroller.canGoBack() as bool == true){
+                _webViewcontroller.goBack();
+                return false;
+              }
+              return true;
             },
-            onPageStarted: (url) => setState(
-              () => isloading = true,
+            child: WebView(
+              onWebResourceError: (error) {
+                showDialog(
+                    context: context,
+                    barrierDismissible: true,
+                    builder: (contect) {
+                      return AlertDialog(
+                        title: Text("Error"),
+                        content: Text(
+                            "Sorry this page could not be loaded, check your internet connection and reload"),
+                        actions: [
+                          FlatButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text("exit"),
+                          ),
+                          FlatButton(
+                            onPressed: () {
+                              _reloadPage();
+                              Navigator.pop(context);
+                            },
+                            child: Text("Reload"),
+                          )
+                        ],
+                      );
+                    });
+              },
+              onPageStarted: (url) => setState(
+                () => isloading = true,
+              ),
+              onPageFinished: (url) => setState(
+                () => isloading = false,
+              ),
+              initialUrl: widget.url,
+              javascriptMode: JavascriptMode.unrestricted,
+              onWebViewCreated: _onWebViewCreatedCallback,
             ),
-            onPageFinished: (url) => setState(
-              () => isloading = false,
-            ),
-            initialUrl: widget.url,
-            javascriptMode: JavascriptMode.unrestricted,
-            onWebViewCreated: _onWebViewCreatedCallback,
           ),
         ),
         isloading
@@ -100,34 +109,7 @@ class _WebPageViewState extends State<WebPageView> {
             : Center()
       ],
     );
-    // return Scaffold(
-    //   body: Center(
-    //     child: Column(
-    //       mainAxisSize: MainAxisSize.min,
-    //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //       children: <Widget>[
-    //         Padding(
-    //           padding: const EdgeInsets.all(12.0),
-    //           child: Text(
-    //             "Sorry, an error has occurs. check your internet and try again",
-    //             style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500),
-    //             textAlign: TextAlign.center,
-    //             softWrap: true,
-    //           ),
-    //         ),
-    //         MaterialButton(
-    //           color: Colors.blue,
-    //           child: Text("Retry"),
-    //           onPressed: () => setState(
-    //             () {
-    //               withInternet = true;
-    //             },
-    //           ),
-    //         )
-    //       ],
-    //     ),
-    //   ),
-    // );
+
   }
 
   void _onWebViewCreatedCallback(controller) {
