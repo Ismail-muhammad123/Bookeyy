@@ -56,7 +56,7 @@ class _WebPageViewState extends State<WebPageView> {
         SafeArea(
           child: WillPopScope(
             onWillPop: () async {
-              if (_webViewcontroller.canGoBack() as bool == true){
+              if (_webViewcontroller.canGoBack() as bool == true) {
                 _webViewcontroller.goBack();
                 return false;
               }
@@ -109,10 +109,14 @@ class _WebPageViewState extends State<WebPageView> {
             : Center()
       ],
     );
-
   }
 
   void _onWebViewCreatedCallback(controller) {
+    setState(
+      () {
+        _webViewcontroller = controller;
+      },
+    );
     Timer(
       Duration(seconds: 5),
       () => setState(
@@ -120,11 +124,6 @@ class _WebPageViewState extends State<WebPageView> {
           isloading = false;
         },
       ),
-    );
-    setState(
-      () {
-        _webViewcontroller = controller;
-      },
     );
   }
 }
