@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 class Home extends StatefulWidget {
-
-
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-
   bool noInternet = false;
 
   @override
@@ -85,7 +82,8 @@ class _HomeState extends State<Home> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
+                        Navigator.push(
+                          context,
                           routeTo(
                             WebPageView(
                               url: "https://bookeyy.com/entertainment",
@@ -96,8 +94,7 @@ class _HomeState extends State<Home> {
                       child: Container(
                         child: Column(
                           children: <Widget>[
-                            Image.asset("assets/images/show.png",
-                                height: 80.0),
+                            Image.asset("assets/images/show.png", height: 80.0),
                             Text(
                               "Entertainment",
                               style: TextStyle(
@@ -109,7 +106,8 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
+                        Navigator.push(
+                          context,
                           routeTo(
                             WebPageView(
                               url: "https://bookeyy.com/sport-center/",
@@ -135,7 +133,8 @@ class _HomeState extends State<Home> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
+                        Navigator.push(
+                          context,
                           routeTo(
                             WebPageView(
                               url: "https://bookeyy.com/fashion/",
@@ -169,7 +168,8 @@ class _HomeState extends State<Home> {
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(context,
+                        Navigator.push(
+                          context,
                           routeTo(
                             WebPageView(
                               url: "https://bookeyy.com/health-care/",
@@ -200,7 +200,7 @@ class _HomeState extends State<Home> {
                           builder: (context) => AlertDialog(
                             title: Text("Not Available"),
                             content: Text(
-                                "Sorry, this feature is not available yet, but it is comming soon"),
+                                "Sorry, this feature is not available yet, but it is coming soon"),
                             actions: <Widget>[
                               FlatButton(
                                 onPressed: () => Navigator.pop(context),
@@ -234,7 +234,7 @@ class _HomeState extends State<Home> {
                           builder: (context) => AlertDialog(
                             title: Text("Not Available"),
                             content: Text(
-                                "Sorry, this feature is not available yet, but it is comming soon"),
+                                "Sorry, this feature is not available yet, but it is coming soon"),
                             actions: <Widget>[
                               FlatButton(
                                 onPressed: () => Navigator.pop(context),

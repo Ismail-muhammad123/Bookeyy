@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:data_connection_checker/data_connection_checker.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -15,10 +16,9 @@ class WebPageView extends StatefulWidget {
 
 class _WebPageViewState extends State<WebPageView> {
   @override
-  void initState() {
+  initState() {
     super.initState();
-    // withInternet = _checkForConnection();
-    isloading = true;
+    isloading = false;
   }
 
   Future searchNetwork() async {
@@ -29,21 +29,6 @@ class _WebPageViewState extends State<WebPageView> {
   bool isloading;
   WebViewController _webViewcontroller;
   bool withInternet;
-
-  _onWillPopCallback() async {
-    var canGoBack = _webViewcontroller.canGoBack();
-
-    if (canGoBack as bool == true) {
-      _webViewcontroller.goBack();
-      return false;
-    }
-    Navigator.pop(context);
-    return true;
-  }
-
-  _checkForConnection() {
-    return DataConnectionChecker().hasConnection;
-  }
 
   _reloadPage() {
     _webViewcontroller.reload();
@@ -56,7 +41,8 @@ class _WebPageViewState extends State<WebPageView> {
         SafeArea(
           child: WillPopScope(
             onWillPop: () async {
-              if (_webViewcontroller.canGoBack() as bool == true) {
+              print(_webViewcontroller.canGoBack() == true);
+              if (_webViewcontroller.canGoBack() == true) {
                 _webViewcontroller.goBack();
                 return false;
               }
@@ -64,25 +50,33 @@ class _WebPageViewState extends State<WebPageView> {
             },
             child: WebView(
               onWebResourceError: (error) {
+                setState(
+                  () => isloading = false,
+                );
                 showDialog(
                     context: context,
                     barrierDismissible: true,
                     builder: (contect) {
                       return AlertDialog(
-                        title: Text("Error"),
+                        title: Row(
+                          children: [
+                            Icon(
+                              Icons.error,
+                            ),
+                            Text("Error"),
+                          ],
+                        ),
                         content: Text(
-                            "Sorry this page could not be loaded, check your internet connection and reload"),
+                          "Sorry this page could not be loaded, try checking "
+                          "your internet connection and reload",
+                        ),
                         actions: [
-                          FlatButton(
-                            onPressed: () => Navigator.pop(context),
-                            child: Text("exit"),
-                          ),
                           FlatButton(
                             onPressed: () {
                               _reloadPage();
                               Navigator.pop(context);
                             },
-                            child: Text("Reload"),
+                            child: Text("Okay"),
                           )
                         ],
                       );
@@ -96,7 +90,11 @@ class _WebPageViewState extends State<WebPageView> {
               ),
               initialUrl: widget.url,
               javascriptMode: JavascriptMode.unrestricted,
-              onWebViewCreated: _onWebViewCreatedCallback,
+              onWebViewCreated: (controller) => setState(
+                () {
+                  _webViewcontroller = controller;
+                },
+              ),
             ),
           ),
         ),
@@ -106,24 +104,20 @@ class _WebPageViewState extends State<WebPageView> {
                   backgroundColor: Colors.blue,
                 ),
               )
-            : Center()
+            : Container()
       ],
     );
   }
+}
 
-  void _onWebViewCreatedCallback(controller) {
-    setState(
-      () {
-        _webViewcontroller = controller;
-      },
-    );
-    Timer(
-      Duration(seconds: 5),
-      () => setState(
-        () {
-          isloading = false;
-        },
-      ),
-    );
+class WebViewWidget extends StatefulWidget {
+  @override
+  _WebViewWidgetState createState() => _WebViewWidgetState();
+}
+
+class _WebViewWidgetState extends State<WebViewWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
