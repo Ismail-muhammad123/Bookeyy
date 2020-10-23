@@ -11,6 +11,24 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   bool noInternet = false;
 
+  _showComingSoon() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Not Available"),
+        content: Text(
+            "Sorry, this feature is not available yet, but it is coming soon"),
+        actions: <Widget>[
+          FlatButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Okay"),
+          )
+        ],
+      ),
+      barrierDismissible: true,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,11 +112,16 @@ class _HomeState extends State<Home> {
                       child: Container(
                         child: Column(
                           children: <Widget>[
-                            Image.asset("assets/images/show.png", height: 80.0),
+                            Image.asset(
+                              "assets/images/show.png",
+                              height: 80.0,
+                            ),
                             Text(
                               "Entertainment",
                               style: TextStyle(
-                                  color: Colors.orange, fontSize: 16.0),
+                                color: Colors.orange,
+                                fontSize: 16.0,
+                              ),
                             )
                           ],
                         ),
@@ -125,7 +148,9 @@ class _HomeState extends State<Home> {
                             Text(
                               "Sport Centers",
                               style: TextStyle(
-                                  color: Colors.orange, fontSize: 16.0),
+                                color: Colors.orange,
+                                fontSize: 16.0,
+                              ),
                             )
                           ],
                         ),
@@ -221,7 +246,9 @@ class _HomeState extends State<Home> {
                             Text(
                               "Catering",
                               style: TextStyle(
-                                  color: Colors.orange, fontSize: 16.0),
+                                color: Colors.orange,
+                                fontSize: 16.0,
+                              ),
                             )
                           ],
                         ),
@@ -256,7 +283,9 @@ class _HomeState extends State<Home> {
                             Text(
                               "Transportation",
                               style: TextStyle(
-                                  color: Colors.orange, fontSize: 16.0),
+                                color: Colors.orange,
+                                fontSize: 16.0,
+                              ),
                             )
                           ],
                         ),

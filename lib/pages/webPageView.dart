@@ -21,11 +21,6 @@ class _WebPageViewState extends State<WebPageView> {
     isloading = false;
   }
 
-  Future searchNetwork() async {
-    var data = get("https://www.google.com");
-    return data;
-  }
-
   bool isloading;
   WebViewController _webViewcontroller;
   bool withInternet;
@@ -110,14 +105,3 @@ class _WebPageViewState extends State<WebPageView> {
   }
 }
 
-class WebViewWidget extends StatefulWidget {
-  @override
-  _WebViewWidgetState createState() => _WebViewWidgetState();
-}
-
-class _WebViewWidgetState extends State<WebViewWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
