@@ -3,6 +3,7 @@ import 'package:Bookeyy/pages/Search.dart';
 import 'package:Bookeyy/pages/home.dart';
 import 'package:flutter/material.dart';
 import 'package:Bookeyy/pages/Booking.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -38,65 +39,68 @@ class _HomePageState extends State<HomePage> {
       icon: Icon(
         Icons.home,
       ),
-      title: Text(
-        "Home",
-      ),
+      label: "Home",
     ),
     BottomNavigationBarItem(
       icon: Icon(
         Icons.bookmark_border,
       ),
-      title: Text(
-        "My Bookings",
-      ),
+      label: "My Bookings",
     ),
     BottomNavigationBarItem(
       icon: Icon(
         Icons.search,
       ),
-      title: Text(
-        "Search",
-      ),
+      label: "Search",
     ),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      // appBar: AppBar(
-      //   title: _tabTitle,
-      //   centerTitle: true,
-      //   elevation: 0,
-      // ),
-      drawer: HomeDrawerMenu(),
-      bottomNavigationBar: BottomNavigationBar(
-        items: _navItems,
-        elevation: 4.0,
-        currentIndex: _selectedIndex,
-        iconSize: 25.0,
-        selectedItemColor: Colors.black87,
-        onTap: _selectedItemChanged,
-        backgroundColor: Colors.lightBlueAccent,
-      ),
-      body: _selectedIndex == 0
-          ? SafeArea(
-              child: Stack(
-//                key: UniqueKey(),
-                children: <Widget>[
-                  Home(),
-                  IconButton(
-                    icon: Icon(
-                      Icons.menu,
-                      size: 43.0,
-                      color: Colors.blue,
+    return WillPopScope(
+      onWillPop: () async {
+        if (_selectedIndex != 0) {
+          setState(
+            () {
+              _selectedIndex = 0;
+            },
+          );
+          return false;
+        }
+        return true;
+      },
+      child: Scaffold(
+        key: scaffoldKey,
+        drawer: HomeDrawerMenu(),
+        bottomNavigationBar: BottomNavigationBar(
+          items: _navItems,
+          elevation: 12.0,
+          currentIndex: _selectedIndex,
+          iconSize: 25.0,
+          selectedItemColor: Colors.blue,
+          showUnselectedLabels: false,
+          showSelectedLabels: true,
+          onTap: _selectedItemChanged,
+          backgroundColor: Colors.lightBlueAccent,
+        ),
+        body: _selectedIndex == 0
+            ? SafeArea(
+                child: Stack(
+                  children: <Widget>[
+                    Home(),
+                    IconButton(
+                      icon: Icon(
+                        Icons.menu,
+                        size: 43.0,
+                        color: Colors.blue,
+                      ),
+                      onPressed: () => scaffoldKey.currentState.openDrawer(),
                     ),
-                    onPressed: () => scaffoldKey.currentState.openDrawer(),
-                  ),
-                ],
-              ),
-            )
-          : _tabedPages[_selectedIndex],
+                  ],
+                ),
+              )
+            : _tabedPages[_selectedIndex],
+      ),
     );
   }
 }

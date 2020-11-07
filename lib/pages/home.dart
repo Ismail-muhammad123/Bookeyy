@@ -8,294 +8,247 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
+final _decoration = BoxDecoration(
+  boxShadow: [
+    BoxShadow(
+      color: Colors.grey.withOpacity(0.5),
+      spreadRadius: 5,
+      blurRadius: 7,
+      offset: Offset(0, 3), // changes position of shadow
+    ),
+  ],
+  color: Colors.white,
+);
+
 class _HomeState extends State<Home> {
   bool noInternet = false;
-
-  _showComingSoon() {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text("Not Available"),
-        content: Text(
-            "Sorry, this feature is not available yet, but it is coming soon"),
-        actions: <Widget>[
-          FlatButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text("Okay"),
-          )
-        ],
-      ),
-      barrierDismissible: true,
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Container(
-                  height: 300.0,
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.only(
-                      bottomRight: Radius.circular(200.0),
-                    ),
-                  ),
-                ),
-                ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(180.0),
-                  ),
-                  child: Image.asset(
-                    "assets/images/image1.jpg",
-                    fit: BoxFit.fitWidth,
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Stack(
+                children: <Widget>[
+                  Container(
                     height: 300.0,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(
-                    top: 10.0,
-                    right: 40.0,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/images/sub2.png",
-                        height: 45.0,
+                    decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(200.0),
                       ),
-                      Image.asset(
-                        "assets/images/sub1.png",
-                        height: 45.0,
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ],
+                  ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(180.0),
+                    ),
+                    child: Image.asset(
+                      "assets/images/image1.jpg",
+                      fit: BoxFit.fitWidth,
+                      height: 300.0,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 10.0,
+                      right: 40.0,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Image.asset(
+                          "assets/images/sub2.png",
+                          height: 45.0,
+                        ),
+                        Image.asset(
+                          "assets/images/sub1.png",
+                          height: 45.0,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      "Categories",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 25.0,
+                          color: Colors.orange),
+                    ),
+                  )
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        CartegoryCard(
+                          url: "https://bookeyy.com/entertainment",
+                          label: "Entertainment",
+                          imageAsset: "assets/images/show.png",
+                        ),
+                        CartegoryCard(
+                          url: "https://bookeyy.com/sport-center/",
+                          imageAsset: "assets/images/futsal.png",
+                          label: "Sport Centers",
+                        ),
+                        CartegoryCard(
+                          url: "https://bookeyy.com/fashion/",
+                          imageAsset: "assets/images/makeup.png",
+                          label: "Fashion Design",
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20.0,
+                  ),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        CartegoryCard(
+                          url: "https://bookeyy.com/health-care/",
+                          imageAsset: "assets/images/doctor.png",
+                          label: "Health care",
+                        ),
+                        ComingSoonCategory(
+                          imageAsset: "assets/images/catering.png",
+                          label: "Catering",
+                        ),
+                        ComingSoonCategory(
+                          imageAsset: "assets/images/bus.png",
+                          label: "Transportation",
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ComingSoonCategory extends StatelessWidget {
+  const ComingSoonCategory({
+    Key key,
+    this.imageAsset,
+    this.label,
+  }) : super(key: key);
+
+  final imageAsset, label;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text("Not Available"),
+            content: Text(
+              "Sorry, this feature is not available yet, but it is coming soon",
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    "Categories",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 25.0,
-                        color: Colors.orange),
-                  ),
-                )
-              ],
+            actions: <Widget>[
+              FlatButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text("Okay"),
+              ),
+            ],
+          ),
+          barrierDismissible: true,
+        );
+      },
+      child: Card(
+        elevation: 5.0,
+        child: Container(
+          padding: EdgeInsets.all(8.0),
+          // decoration: _decoration,
+          child: Column(
+            children: <Widget>[
+              Image.asset(
+                imageAsset,
+                height: 80.0,
+              ),
+              Text(
+                label,
+                style: TextStyle(
+                  color: Colors.orange,
+                  fontSize: 16.0,
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CartegoryCard extends StatelessWidget {
+  const CartegoryCard({
+    Key key,
+    this.url,
+    this.label,
+    this.imageAsset,
+  }) : super(key: key);
+
+  final String url, label, imageAsset;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          routeTo(
+            WebPageView(
+              url: url,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          routeTo(
-                            WebPageView(
-                              url: "https://bookeyy.com/entertainment",
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/images/show.png",
-                              height: 80.0,
-                            ),
-                            Text(
-                              "Entertainment",
-                              style: TextStyle(
-                                color: Colors.orange,
-                                fontSize: 16.0,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          routeTo(
-                            WebPageView(
-                              url: "https://bookeyy.com/sport-center/",
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/images/futsal.png",
-                              height: 80.0,
-                            ),
-                            Text(
-                              "Sport Centers",
-                              style: TextStyle(
-                                color: Colors.orange,
-                                fontSize: 16.0,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          routeTo(
-                            WebPageView(
-                              url: "https://bookeyy.com/fashion/",
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/images/makeup.png",
-                              height: 80.0,
-                            ),
-                            Text(
-                              "Fashion Design",
-                              style: TextStyle(
-                                  color: Colors.orange, fontSize: 16.0),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+          ),
+        );
+      },
+      child: Card(
+        elevation: 5.0,
+        child: Container(
+          padding: EdgeInsets.all(8.0),
+          // decoration: _decoration,
+          child: Column(
+            children: <Widget>[
+              Image.asset(
+                imageAsset,
+                height: 80.0,
+              ),
+              Text(
+                label,
+                style: TextStyle(
+                  color: Colors.orange,
+                  fontSize: 16.0,
                 ),
-                SizedBox(
-                  height: 40.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          routeTo(
-                            WebPageView(
-                              url: "https://bookeyy.com/health-care/",
-                            ),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/images/doctor.png",
-                              height: 80.0,
-                            ),
-                            Text(
-                              "Health care",
-                              style: TextStyle(
-                                  color: Colors.orange, fontSize: 16.0),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text("Not Available"),
-                            content: Text(
-                                "Sorry, this feature is not available yet, but it is coming soon"),
-                            actions: <Widget>[
-                              FlatButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: Text("Okay"),
-                              ),
-                            ],
-                          ),
-                          barrierDismissible: true,
-                        );
-                      },
-                      child: Container(
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/images/catering.png",
-                              height: 80.0,
-                            ),
-                            Text(
-                              "Catering",
-                              style: TextStyle(
-                                color: Colors.orange,
-                                fontSize: 16.0,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text("Not Available"),
-                            content: Text(
-                                "Sorry, this feature is not available yet, but it is coming soon"),
-                            actions: <Widget>[
-                              FlatButton(
-                                onPressed: () => Navigator.pop(context),
-                                child: Text("Okay"),
-                              )
-                            ],
-                          ),
-                          barrierDismissible: true,
-                        );
-                      },
-                      child: Container(
-                        child: Column(
-                          children: <Widget>[
-                            Image.asset(
-                              "assets/images/bus.png",
-                              height: 80.0,
-                              width: 100.0,
-                            ),
-                            Text(
-                              "Transportation",
-                              style: TextStyle(
-                                color: Colors.orange,
-                                fontSize: 16.0,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -12,6 +12,7 @@ dependencies:
   http: ^0.12.1
   webview_flutter: ^0.3.24
   font_awesome_flutter: ^8.8.1
+  url_launcher:
   flutter:
     sdk: flutter
 
