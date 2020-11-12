@@ -78,10 +78,11 @@ class _HomePageState extends State<HomePage> {
           currentIndex: _selectedIndex,
           iconSize: 25.0,
           selectedItemColor: Colors.blue,
-          showUnselectedLabels: false,
+          showUnselectedLabels: true,
           showSelectedLabels: true,
+          unselectedItemColor: Colors.black,
+          type: BottomNavigationBarType.fixed,
           onTap: _selectedItemChanged,
-          backgroundColor: Colors.lightBlueAccent,
         ),
         body: _selectedIndex == 0
             ? SafeArea(

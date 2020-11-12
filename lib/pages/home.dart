@@ -119,7 +119,7 @@ class _HomeState extends State<Home> {
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         CartegoryCard(
                           url: "https://bookeyy.com/health-care/",
