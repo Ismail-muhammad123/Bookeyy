@@ -1,6 +1,6 @@
 # Bookeyy
 
-A new Flutter project.
+A new software project that helps businesses to manage proucts and services all in one place
 
 ## Getting Started
 
